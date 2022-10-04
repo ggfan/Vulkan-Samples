@@ -315,16 +315,19 @@ target_compile_definitions(astc PRIVATE -DNO_STB_IMAGE_IMPLEMENTATION)
 set_property(TARGET astc PROPERTY FOLDER "ThirdParty")
 
 if(ANDROID)
-    # native_app_glue
-    set(NATIVE_APP_GLUE_DIR "${CMAKE_ANDROID_NDK}/sources/android/native_app_glue")
-
-    file(GLOB NATIVE_APP_GLUE_FILES "${NATIVE_APP_GLUE_DIR}/*.c" "${NATIVE_APP_GLUE_DIR}/*.h")
-    
-    add_library(native_app_glue STATIC ${NATIVE_APP_GLUE_FILES})
-        
-    target_include_directories(native_app_glue PUBLIC ${NATIVE_APP_GLUE_DIR})
-    
-    set_property(TARGET native_app_glue PROPERTY FOLDER "ThirdParty")
+    # game_activity static lib.
+    find_package(game-activity REQUIRED CONFIG)
+    get_target_property(GAME_ACTIVITY_SRC_DIR
+            game-activity::game-activity
+            INTERFACE_INCLUDE_DIRECTORIES)
+    file(GLOB_RECURSE NATIVE_APP_GLUE_FILES
+            "${GAME_ACTIVITY_SRC_DIR}/*.c"
+            "${GAME_ACTIVITY_SRC_DIR}/*.cpp"
+            "${GAME_ACTIVITY_SRC_DIR}/*.h")
+    add_library(game_activity_lib STATIC ${NATIVE_APP_GLUE_FILES})
+    target_include_directories(game_activity_lib PUBLIC ${GAME_ACTIVITY_SRC_DIR})
+    target_link_libraries(game_activity_lib PUBLIC game-activity::game-activity)
+    set_property(TARGET game_activity_lib PROPERTY FOLDER "ThirdParty")
 else()
     if (NOT DIRECT_TO_DISPLAY)
         # GLFW

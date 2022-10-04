@@ -17,7 +17,6 @@
 
 package com.khronos.vulkan_samples;
 
-import android.app.NativeActivity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -26,13 +25,15 @@ import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
+
 import android.view.View;
 
+import com.google.androidgamesdk.GameActivity;
 import com.khronos.vulkan_samples.common.Notifications;
 
 import java.io.File;
 
-public class NativeSampleActivity extends NativeActivity {
+public class NativeSampleActivity extends GameActivity {
 
     private Context context;
 
