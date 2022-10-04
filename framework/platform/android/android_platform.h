@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <android_native_app_glue.h>
+#include <game-activity/native_app_glue/android_native_app_glue.h>
 
 #include "platform/platform.h"
 
@@ -81,7 +81,7 @@ class AndroidPlatform : public Platform
 
 	android_app *get_android_app();
 
-	ANativeActivity *get_activity();
+	GameActivity *get_activity();
 
 	virtual std::unique_ptr<RenderContext> create_render_context(Device &device, VkSurfaceKHR surface, const std::vector<VkSurfaceFormatKHR> &surface_format_priority) const override;
 

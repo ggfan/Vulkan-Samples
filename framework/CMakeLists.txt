@@ -509,7 +509,7 @@ endif()
 
 # Link platform specific libraries
 if(ANDROID)
-    target_link_libraries(${PROJECT_NAME} PUBLIC log android native_app_glue)
+    target_link_libraries(${PROJECT_NAME} PUBLIC log android)
 else()
     if (DIRECT_TO_DISPLAY)
         target_link_libraries(${PROJECT_NAME} PRIVATE dl)

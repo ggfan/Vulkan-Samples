@@ -18,9 +18,14 @@
 #include "common/logging.h"
 #include "platform/platform.h"
 #include "plugins/plugins.h"
-
 #if defined(VK_USE_PLATFORM_ANDROID_KHR)
 #	include "platform/android/android_platform.h"
+#   include <game-activity/GameActivity.cpp>
+#   include <game-text-input/gametextinput.cpp>
+extern "C" {
+#   include <game-activity/native_app_glue/android_native_app_glue.c>
+}
+
 void android_main(android_app *state)
 {
 	vkb::AndroidPlatform platform{state};

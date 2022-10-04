@@ -63,7 +63,7 @@ bool AndroidWindow::should_close()
 
 void AndroidWindow::close()
 {
-	ANativeActivity_finish(platform->get_activity());
+	GameActivity_finish(platform->get_activity());
 	finish_called = true;
 }
 

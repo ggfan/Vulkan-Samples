@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <android_native_app_glue.h>
+#include <game-activity/native_app_glue/android_native_app_glue.h>
 
 #include "common/vk_common.h"
 #include "platform/window.h"

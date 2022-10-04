@@ -21,6 +21,15 @@ include(android_package)
 # create sample app project
 project(vulkan_samples LANGUAGES C CXX)
 
+if(ANDROID)
+#   TODO: find the home for the following.
+    find_package(game-activity REQUIRED CONFIG)
+    get_target_property(game-activity-include
+            game-activity::game-activity
+            INTERFACE_INCLUDE_DIRECTORIES)
+    include_directories(BEFORE ${game-activity-include})
+endif()
+
 add_subdirectory(plugins)
 add_subdirectory(apps)
 
@@ -49,8 +58,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE framework plugins apps spdlog)
 
 # Create android project
 if(ANDROID)
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-u ANativeActivity_onCreate")
-    
+    target_link_libraries(${PROJECT_NAME} PRIVATE game-activity::game-activity)
     if(CMAKE_VS_NsightTegra_VERSION)
         set_property(TARGET ${PROJECT_NAME} PROPERTY ANDROID_GUI ON)
         set_property(TARGET ${PROJECT_NAME} PROPERTY ANDROID_ASSETS_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../assets)
